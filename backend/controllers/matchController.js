@@ -7,7 +7,8 @@ export const getMatches = async (req, res) => {
     if (!user) return res.status(404).json({ message: 'User not found' });
 
     try {
-      const aiRes = await fetch('http://localhost:8000/api/v1/calculate-matches', {
+      const aiEngineUrl = process.env.AI_ENGINE_URL || 'http://localhost:8000';
+      const aiRes = await fetch(`${aiEngineUrl}/api/v1/calculate-matches`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: user._id })
